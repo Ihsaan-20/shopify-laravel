@@ -12,7 +12,8 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        'https://elementary-solutions.com/shopify_store/public/webhook/products'
+        'products-create',
+        'products-update'
         // '*',
     ];
 }
