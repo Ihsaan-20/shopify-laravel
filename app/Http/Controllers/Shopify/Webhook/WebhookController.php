@@ -27,7 +27,7 @@ class WebhookController extends Controller
         
         $webhook = [
             "webhook" => [
-                "address"=> "https://elementary-solutions.com/shopify_store/public/webhook",
+                "address"=> "https://elementary-solutions.com/shopify_store/public/webhook/products",
                 "topic"=> "products/create",
                 "format"=> "json"
                 ]
