@@ -29,9 +29,8 @@ Route::get('login', function (){
     return view('login');
 })->name('login');
 
-Route::webhooks('https://shopifymultivendor.com/order-creation-hook');
 
-
+Route::webhooks('https://elementary-solutions.com/shopify_store/public/webhook/products');
 
 
 Route::controller(WebhookController::class)->group(function () {
