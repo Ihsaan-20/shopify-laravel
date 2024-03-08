@@ -32,6 +32,14 @@ Route::get('/wellcome', function () {
 Route::webhooks('products-create');
 
 
+// /shopify/auth
+Route::prefix('shopify/auth')->group(function () {
+    Route::get('/', [InstallationController::class, 'startInstallation']);
+    Route::get('redirect', [InstallationController::class, 'handleRedirect'])->name('app_install_redirect');
+    Route::get('complete', [InstallationController::class, 'completeInstallation'])->name('app_install_complete');
+});
+
+
 Route::controller(WebhookController::class)->group(function () {
 
     Route::get('get-all-webhooks', 'getAllWebHook');
