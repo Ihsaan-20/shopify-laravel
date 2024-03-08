@@ -20,12 +20,11 @@ use App\Http\Controllers\Shopify\Customer\CustomerController;
 |
 */
 
-Route::get('/wellcome', function () {
-
+Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/', function () {
+Route::get('/wellcome', function () {
     return view('welcome');
 })->middleware(['auth.shopify'])->name('home');
 
