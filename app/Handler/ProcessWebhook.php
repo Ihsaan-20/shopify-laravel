@@ -3,7 +3,6 @@
 namespace App\Handler;
 
 use Illuminate\Support\Facades\Log;
-use Spatie\WebhookClient\Jobs\ProcessWebhookJob;
 use Spatie\WebhookClient\Jobs\ProcessWebhookJob as SpatieProcessWebhookJob;
 
 //The class extends "ProcessWebhookJob" class as that is the class 
