@@ -22,7 +22,7 @@ class WebhookController extends Controller
         $apiPassword = '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';
 
         $api->setSession(new Session($shopifyStore, $apiPassword));
-        $response = $api->rest('GET', '/admin/webhooks.json');
+        $response = $api->rest('POST', '/admin/webhooks.json');
         
         
         $webhook = [
