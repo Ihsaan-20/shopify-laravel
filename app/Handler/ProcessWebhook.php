@@ -25,8 +25,8 @@ class ProcessWebhook extends SpatieProcessWebhookJob
           Log::info($data);
         }
         Log::info('after');
-
         //Acknowledge you received the response
         http_response_code(200);
+        logger($this->webhookCall);
     }
 }

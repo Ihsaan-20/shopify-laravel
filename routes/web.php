@@ -28,7 +28,7 @@ Route::get('/', function () {
 
 
 
-Route::webhooks('products-create', 'handle');
+Route::webhooks('products-create');
 
 
 Route::controller(WebhookController::class)->group(function () {
