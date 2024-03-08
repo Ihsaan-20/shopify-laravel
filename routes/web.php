@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShopifyAppController;
 use App\Http\Controllers\Shopify\Order\OrderController;
@@ -19,23 +20,27 @@ use App\Http\Controllers\Shopify\Customer\CustomerController;
 |
 */
 
+Route::get('/wellcome', function () {
+
+    return view('welcome');
+});
+
 Route::get('/', function () {
     return view('welcome');
 })->middleware(['auth.shopify'])->name('home');
 
-Route::get('login', function (){
-    return view('login');
-})->name('login');
 
-Route::webhooks('https://shopifymultivendor.com/order-creation-hook');
-
-
+Route::webhooks('products-create');
 
 
 Route::controller(WebhookController::class)->group(function () {
 
     Route::get('get-all-webhooks', 'getAllWebHook');
     Route::get('create-webhooks', 'createWebHook');
+    Route::post('webhook/products', function (){
+        Log::info('Hey!');
+       
+    });
 });
 
 
