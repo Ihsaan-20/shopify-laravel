@@ -33,7 +33,7 @@ class CustomerController extends Controller
         $options->setVersion('2024-01');
         $api = new BasicShopifyAPI($options);
         $shopifyStore = 'quickstart-eaa7987a.myshopify.com';
-        $apiPassword = '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';
+        $apiPassword = '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';
         $api->setSession(new Session($shopifyStore, $apiPassword));
 
         $response = $api->rest('GET', '/admin/api/2024-01/customers.json');

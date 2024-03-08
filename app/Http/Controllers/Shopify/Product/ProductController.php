@@ -43,7 +43,7 @@ class ProductController extends Controller
 
         $api = new BasicShopifyAPI($options);
         $shopifyStore = 'quickstart-eaa7987a.myshopify.com';
-        $apiPassword = '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';
+        $apiPassword = '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';
 
         $api->setSession(new Session($shopifyStore, $apiPassword));
         $response = $api->rest('GET', '/admin/products.json');
@@ -73,7 +73,7 @@ class ProductController extends Controller
 
     public function getApiDataWithCrul()
     {
-        $token = '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';
+        $token = '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';
         $shopifyStore = 'quickstart-eaa7987a.myshopify.com';
 
         $ch = curl_init("https://" . $shopifyStore . "/admin/products.json");
@@ -109,7 +109,7 @@ class ProductController extends Controller
 
         $shopifyStore = 'quickstart-eaa7987a.myshopify.com';
         $apiKey = '6caab75eb0bbcdb5d04f13c85b1d25e1';
-        $apiPassword = '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';
+        $apiPassword = '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';
         $client = new \GuzzleHttp\Client();
         $response = $client->get("https://$shopifyStore/admin/api/2024-01/products.json", [
             'auth' => [$apiKey, $apiPassword]
@@ -124,7 +124,7 @@ class ProductController extends Controller
     {
         $shopifyStore = 'quickstart-eaa7987a.myshopify.com';
         $apiKey = '6caab75eb0bbcdb5d04f13c85b1d25e1';
-        $apiPassword = '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';
+        $apiPassword = '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';
         $client = new Client();
         $since_id = 0;
         $storeId = 999;
@@ -213,7 +213,7 @@ class ProductController extends Controller
         $options->setVersion('2024-01');
         $api = new BasicShopifyAPI($options);
         $shopifyStore = 'quickstart-eaa7987a.myshopify.com';
-        $apiPassword = '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';
+        $apiPassword = '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';
         $api->setSession(new Session($shopifyStore, $apiPassword));
 
         $ex = ProductShop::where('id', 3)->first();
