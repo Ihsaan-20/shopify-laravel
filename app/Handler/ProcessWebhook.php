@@ -13,6 +13,7 @@ class ProcessWebhook extends SpatieProcessWebhookJob
 {
     public function handle()
     {
+      Log::info('before');
         $dat = json_decode($this->webhookCall, true);
         $data = $dat['payload'];
     
@@ -23,6 +24,7 @@ class ProcessWebhook extends SpatieProcessWebhookJob
           // Whatever you want
           Log::info($data);
         }
+        Log::info('after');
 
         //Acknowledge you received the response
         http_response_code(200);

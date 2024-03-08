@@ -21,6 +21,7 @@ use App\Http\Controllers\Shopify\Customer\CustomerController;
 */
 
 Route::get('/', function () {
+
     return view('welcome');
 });
 
