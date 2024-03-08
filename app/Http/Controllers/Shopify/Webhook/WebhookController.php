@@ -15,7 +15,7 @@ class WebhookController extends Controller
     {
         // return 'ok';
         $options = new Options();
-        $options->setVersion('unstable');
+        $options->setVersion('2024-01');
 
         $api = new BasicShopifyAPI($options);
         $shopifyStore = 'quickstart-eaa7987a.myshopify.com';
