@@ -53,7 +53,7 @@ class InstallationController extends Controller {
                             /**
                              * Handle whether the app will render in Embed mode
                              */
-                            
+
                             // $is_embedded = determineIfAppIsEmbedded();
                             // if($is_embedded) {
                             //     $user = User::where('store_id', $storeDetails->table_id)->first();
@@ -97,15 +97,16 @@ class InstallationController extends Controller {
                         $shopDetails = $this->getShopDetailsFromShopify($shop, $accessToken);
                         $storeDetails = $this->saveStoreDetailsToDatabase($shopDetails, $accessToken);
                         if($storeDetails) {  
+                            print_r("installation process is complete..");
                             //At this point the installation process is complete.
-                            $is_embedded = determineIfAppIsEmbedded();
-                            if($is_embedded) {
-                                $user = User::where('store_id', $storeDetails->table_id)->first();
-                                Auth::login($user);
-                                return redirect()->route('home');
-                            } else {
-                                return Redirect::route('login');
-                            }
+                            // $is_embedded = determineIfAppIsEmbedded();
+                            // if($is_embedded) {
+                            //     $user = User::where('store_id', $storeDetails->table_id)->first();
+                            //     Auth::login($user);
+                            //     return redirect()->route('home');
+                            // } else {
+                            //     return Redirect::route('login');
+                            // }
                         } else {
                             Log::info('Problem during saving shop details into the db');
                             Log::info($storeDetails);
