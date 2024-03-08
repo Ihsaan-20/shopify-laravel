@@ -23,6 +23,7 @@ Route::get('/', function () {
     return 'working';
 });
 
+
 Route::get('login', function (){
     return view('login');
 })->name('login');
