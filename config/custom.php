@@ -1,9 +1,9 @@
 <?php 
 
 return [
-    'shopify_api_key' => env('SHOPIFY_API_KEY', '8271b83e7ad33fb6a78b9f915d61749e'),
-    'shopify_api_secret' => env('SHOPIFY_API_SECRET', '44cf53b978770d7d0652c85aad4634f7'),
-    'shopify_api_version' => '2022-07',
+    'shopify_api_key' => env('SHOPIFY_API_KEY', '6caab75eb0bbcdb5d04f13c85b1d25e1'),
+    'shopify_api_secret' => env('SHOPIFY_API_SECRET', '312be2ef4318c0d9c05e6e7d5975cf6a'),
+    'shopify_api_version' => '2024-01',
     'fulfillment_service_name' => 'App Fulifllment Service',
     'stripe_api_key' => env('STRIPE_KEY', ''),
     'stripe_api_secret' => env('STRIPE_SECRET', ''),
