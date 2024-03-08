@@ -37,6 +37,7 @@ Route::controller(WebhookController::class)->group(function () {
 
     Route::get('get-all-webhooks', 'getAllWebHook');
     Route::get('create-webhooks', 'createWebHook');
+    Route::get('webhook', 'handle');
 });
 
 
