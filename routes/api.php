@@ -19,4 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('order-creation-hook', [OrderController::class, 'hook']);
+
+Route::webhooks('https://elementary-solutions.com/shopify_store/public/webhook/products');

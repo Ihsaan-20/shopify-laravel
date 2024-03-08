@@ -26,12 +26,8 @@ Route::get('/', function () {
 });
 
 
-Route::get('login', function (){
-    return view('login');
-})->name('login');
 
 
-Route::webhooks('https://elementary-solutions.com/shopify_store/public/webhook/products');
 
 
 Route::controller(WebhookController::class)->group(function () {
