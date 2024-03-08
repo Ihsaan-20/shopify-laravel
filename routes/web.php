@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShopifyAppController;
 use App\Http\Controllers\Shopify\Order\OrderController;
@@ -37,7 +38,10 @@ Route::controller(WebhookController::class)->group(function () {
 
     Route::get('get-all-webhooks', 'getAllWebHook');
     Route::get('create-webhooks', 'createWebHook');
-    Route::get('webhook', 'handle');
+    Route::post('webhook/products', function (){
+        Log::info('Hey!');
+       
+    });
 });
 
 
