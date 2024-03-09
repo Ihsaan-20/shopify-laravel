@@ -62,24 +62,25 @@ class InstallationController extends Controller {
     }
     
      public function startInstallation(Request $request) {
-        dd($request->all());
+
         try {
             $validRequest = $this->validateRequestFromShopify($request->all());
             if($validRequest) { 
-                $shop = $request->has('shop'); // Check if shop parameter exists on the request.
+                $shop = $request->has('shop');
                 if($shop) {
-                    // Assuming getStoreByDomain retrieves store details from your database
+
                     $storeDetails = $this->getStoreByDomain($request->shop);
                 
                     if($storeDetails !== null && $storeDetails !== false) {
-                        // Store record exists, now determine whether the access token is valid or not
+
                         $validAccessToken = $this->checkIfAccessTokenIsValid($storeDetails);
+                        
                         if($validAccessToken) {
-                            // Token is valid for Shopify API calls, so redirect them to the login page.
+
                             print_r("Token is valid for Shopify API calls so redirect them to the login page.");
-                            // Assuming this is where you would redirect the user to the login page
+
                         } else {
-                            // Access token is not valid, initiate the installation flow
+
                             $endpoint = 'https://' . $request->shop .
                                 '/admin/oauth/authorize?client_id=' . $this->api_key .
                                 '&scope=' . $this->api_scopes .
@@ -87,7 +88,7 @@ class InstallationController extends Controller {
                             return Redirect::to($endpoint);
                         }
                     } else {
-                        // Store details not found, initiate the installation flow
+
                         $endpoint = 'https://' . $request->shop .
                             '/admin/oauth/authorize?client_id=' . $this->api_key .
                             '&scope=' . $this->api_scopes .
@@ -334,23 +335,23 @@ class InstallationController extends Controller {
             if($storeDetails !== null && isset($storeDetails->access_token) && strlen($storeDetails->access_token) > 0) {
                 // Get the access token
                 $token = $storeDetails->access_token;
+                return true;
+                // // Construct the endpoint URL for checking token validity
+                // $endpoint = getShopifyURLForStore('shop.json', $storeDetails);
                 
-                // Construct the endpoint URL for checking token validity
-                $endpoint = getShopifyURLForStore('shop.json', $storeDetails);
+                // // Prepare headers for the API request
+                // $headers = getShopifyHeadersForStore($storeDetails);
                 
-                // Prepare headers for the API request
-                $headers = getShopifyHeadersForStore($storeDetails);
+                // // Make a GET request to Shopify API to check token validity
+                // $response = $this->makeAnAPICallToShopify('GET', $endpoint, null, $headers, null);
                 
-                // Make a GET request to Shopify API to check token validity
-                $response = $this->makeAnAPICallToShopify('GET', $endpoint, null, $headers, null);
-                
-                // Return true if response status code is 200 (OK), indicating token is valid
-                return $response['statusCode'] === 200;
+                // // Return true if response status code is 200 (OK), indicating token is valid
+                // return $response['statusCode'] === 200;
             }
             
             // If storeDetails is null or access_token is empty, return true
             // Alternatively, you might want to return false in this case if you want to strictly check token validity
-            return true;
+            return false;
         } catch(Exception $e) {
             // Log and return false in case of an exception
             return false;
