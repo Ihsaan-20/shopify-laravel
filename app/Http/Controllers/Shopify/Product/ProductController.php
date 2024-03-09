@@ -108,7 +108,7 @@ class ProductController extends Controller
     {
 
         $shopifyStore = 'quickstart-eaa7987a.myshopify.com';
-        $apiKey = '6caab75eb0bbcdb5d04f13c85b1d25e1';
+        $apiKey = 'c2be734f4ce6e80f56e42ac02aaead3c';
         $apiPassword = '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';
         $client = new \GuzzleHttp\Client();
         $response = $client->get("https://$shopifyStore/admin/api/2024-01/products.json", [
