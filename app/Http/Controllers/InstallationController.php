@@ -80,12 +80,13 @@ class InstallationController extends Controller {
                             print_r("Token is valid for Shopify API calls so redirect them to the login page.");
 
                         } else {
+                            print_r("Token is valid for Shopify API calls so redirect them to the login page.");
 
-                            $endpoint = 'https://' . $request->shop .
-                                '/admin/oauth/authorize?client_id=' . $this->api_key .
-                                '&scope=' . $this->api_scopes .
-                                '&redirect_uri=' . route('app_install_redirect');
-                            return Redirect::to($endpoint);
+                            // $endpoint = 'https://' . $request->shop .
+                            //     '/admin/oauth/authorize?client_id=' . $this->api_key .
+                            //     '&scope=' . $this->api_scopes .
+                            //     '&redirect_uri=' . route('app_install_redirect');
+                            // return Redirect::to($endpoint);
                         }
                     } else {
 
