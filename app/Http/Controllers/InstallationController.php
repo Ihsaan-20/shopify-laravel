@@ -80,7 +80,7 @@ class InstallationController extends Controller {
                             print_r("Token is valid for Shopify API calls so redirect them to the login page.");
 
                         } else {
-                            print_r("Token is valid for Shopify API calls so redirect them to the login page.");
+                            print_r("insatll one");
 
                             // $endpoint = 'https://' . $request->shop .
                             //     '/admin/oauth/authorize?client_id=' . $this->api_key .
@@ -89,12 +89,20 @@ class InstallationController extends Controller {
                             // return Redirect::to($endpoint);
                         }
                     } else {
+                        print_r("insatll two");
+                        
+                        //https://admin.shopify.com/store/quickstart-eaa7987a/oauth/authorize?
+                        //client_id=6caab75eb0bbcdb5d04f13c85b1d25e1&scope=write_orders,write_fulfillments,write_customers,
+                        //write_products,read_third_party_fulfillment_orders,write_third_party_fulfillment_orders,
+                        //write_assigned_fulfillment_orders,read_assigned_fulfillment_orders,
+                        //read_merchant_managed_fulfillment_orders,write_merchant_managed_fulfillment_orders
+                        //&redirect_uri=https://elementary-solutions.com/shopify_store/public/shopify/auth/redirect
 
-                        $endpoint = 'https://' . $request->shop .
-                            '/admin/oauth/authorize?client_id=' . $this->api_key .
-                            '&scope=' . $this->api_scopes .
-                            '&redirect_uri=' . route('app_install_redirect');
-                        return Redirect::to($endpoint);
+                        // $endpoint = 'https://' . $request->shop .
+                        //     '/admin/oauth/authorize?client_id=' . $this->api_key .
+                        //     '&scope=' . $this->api_scopes .
+                        //     '&redirect_uri=' . route('app_install_redirect');
+                        // return Redirect::to($endpoint);
                     }
                 } else {
                     throw new Exception('Shop parameter not present in the request');
