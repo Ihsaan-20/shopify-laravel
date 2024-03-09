@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Support\Facades\Log;
 
 trait FunctionTrait {
+    
     public function getStoreByDomain($shop) {
         return Store::where('myshopify_domain', $shop)->first();
     }
