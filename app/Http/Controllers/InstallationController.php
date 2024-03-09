@@ -34,6 +34,32 @@ class InstallationController extends Controller {
      * Re-installation
      * Opening the app
      */
+
+     public function getProductsFromShopify($shop, $accessToken, $apiVersion) {
+        try {
+            $endpoint = "https://{$shop}.myshopify.com/admin/api/{$apiVersion}/products.json";
+            $headers = [
+                'Content-Type: application/json',
+                'X-Shopify-Access-Token: ' . $accessToken
+            ];
+    
+            $response = $this->makeAnAPICallToShopify('GET', $endpoint, null, $headers);
+    
+            if ($response['statusCode'] == 200) {
+                return $response['body'];
+            } else {
+                // Handle error response
+                Log::error('Failed to retrieve products from Shopify API');
+                Log::error($response);
+                return null;
+            }
+        } catch (Exception $e) {
+            // Handle exceptions
+            Log::error('Error while fetching products from Shopify API');
+            Log::error($e->getMessage());
+            return null;
+        }
+    }
     
      public function startInstallation(Request $request) {
         try {
@@ -80,6 +106,7 @@ class InstallationController extends Controller {
     
 
     public function handleRedirect(Request $request) {
+        dd($request->all());
         try {
             $validRequest = $this->validateRequestFromShopify($request->all());
             if($validRequest) {
