@@ -62,7 +62,7 @@ class InstallationController extends Controller {
     }
     
      public function startInstallation(Request $request) {
-        dd($request->all());
+        
         try {
             $validRequest = $this->validateRequestFromShopify($request->all());
             if($validRequest) { 
@@ -70,6 +70,7 @@ class InstallationController extends Controller {
                 if($shop) {
                     // Assuming getStoreByDomain retrieves store details from your database
                     $storeDetails = $this->getStoreByDomain($request->shop);
+                    dd($storeDetails);
                     if($storeDetails !== null && $storeDetails !== false) {
                         // Store record exists, now determine whether the access token is valid or not
                         $validAccessToken = $this->checkIfAccessTokenIsValid($storeDetails);
