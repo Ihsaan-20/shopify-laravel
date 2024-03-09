@@ -14,36 +14,36 @@ trait FunctionTrait {
 
     public function validateRequestFromShopify($request) {
         try {
-            // Log the request data received from Shopify
+
             Log::info('Received request data from Shopify:');
             Log::info($request);
     
-            // Ensure all required parameters are present
+
             if (!isset($request['hmac']) || !isset($request['shop']) || !isset($request['timestamp'])) {
                 Log::error('Missing required parameters in the request.');
                 return false;
             }
     
-            // Extract parameters from the request
+
             $hmac = $request['hmac'];
             $shop = $request['shop'];
             $timestamp = $request['timestamp'];
     
-            // Validate timestamp - Check if the timestamp is within an acceptable range
+
             $currentTimestamp = time();
-            $maxTimestampDifference = 300; // 5 minutes (adjust as needed)
+            $maxTimestampDifference = 300; 
             if (abs($currentTimestamp - $timestamp) > $maxTimestampDifference) {
                 Log::error('Timestamp is too old or too far in the future.');
                 return false;
             }
     
-            // Prepare data for HMAC validation
+
             $dataForHmac = "shop=$shop&timestamp=$timestamp";
     
             // Calculate HMAC
             $calculatedHmac = hash_hmac('sha256', $dataForHmac, config('custom.shopify_api_secret'));
     
-            // Compare calculated HMAC with received HMAC
+
             if ($calculatedHmac === $hmac) {
                 Log::info('Request HMAC validation successful.');
                 return true;
