@@ -13,7 +13,7 @@ trait FunctionTrait {
     }
     
     public function validateRequestFromShopify($request) {
-
+        dd($request);
         try {
             $arr = [];
             $hmac = $request['hmac'];

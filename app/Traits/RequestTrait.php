@@ -18,19 +18,17 @@ trait RequestTrait {
             $client = new Client();
             $response = null;
             if($method == 'GET' || $method == 'DELETE') {
-                // Make a GET or DELETE request without request body
                 $response = $client->request($method, $endpoint, ['headers' => $headers]);
             } else {
-                // Make a POST or PUT request with JSON request body
+
                 $response = $client->request($method, $endpoint, ['headers' => $headers, 'json' => $requestBody]);
             } 
-            // Return the response status code and body
+
             return [
                 'statusCode' => $response->getStatusCode(),
                 'body' => json_decode($response->getBody(), true)
             ];
         } catch(Exception $e) {
-            // Log and return error details in case of an exception
             return [
                 'statusCode' => $e->getCode(),
                 'message' => $e->getMessage(),

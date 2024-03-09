@@ -89,8 +89,7 @@ class InstallationController extends Controller {
                             // return Redirect::to($endpoint);
                         }
                     } else {
-                        print_r("insatll two");
-                        
+
                         //https://admin.shopify.com/store/quickstart-eaa7987a/oauth/authorize?
                         //client_id=6caab75eb0bbcdb5d04f13c85b1d25e1&scope=write_orders,write_fulfillments,write_customers,
                         //write_products,read_third_party_fulfillment_orders,write_third_party_fulfillment_orders,
@@ -98,11 +97,11 @@ class InstallationController extends Controller {
                         //read_merchant_managed_fulfillment_orders,write_merchant_managed_fulfillment_orders
                         //&redirect_uri=https://elementary-solutions.com/shopify_store/public/shopify/auth/redirect
 
-                        // $endpoint = 'https://' . $request->shop .
-                        //     '/admin/oauth/authorize?client_id=' . $this->api_key .
-                        //     '&scope=' . $this->api_scopes .
-                        //     '&redirect_uri=' . route('app_install_redirect');
-                        // return Redirect::to($endpoint);
+                        $endpoint = 'https://' . $request->shop .
+                            '/admin/oauth/authorize?client_id=' . $this->api_key .
+                            '&scope=' . $this->api_scopes .
+                            '&redirect_uri=' . route('app_install_redirect');
+                        return Redirect::to($endpoint);
                     }
                 } else {
                     throw new Exception('Shop parameter not present in the request');
@@ -340,29 +339,19 @@ class InstallationController extends Controller {
 
      private function checkIfAccessTokenIsValid($storeDetails) {
         try {
-            // Check if $storeDetails is not null and access_token exists and is not empty
             if($storeDetails !== null && isset($storeDetails->access_token) && strlen($storeDetails->access_token) > 0) {
-                // Get the access token
                 $token = $storeDetails->access_token;
                 return true;
-                // // Construct the endpoint URL for checking token validity
-                // $endpoint = getShopifyURLForStore('shop.json', $storeDetails);
-                
-                // // Prepare headers for the API request
-                // $headers = getShopifyHeadersForStore($storeDetails);
-                
-                // // Make a GET request to Shopify API to check token validity
-                // $response = $this->makeAnAPICallToShopify('GET', $endpoint, null, $headers, null);
-                
-                // // Return true if response status code is 200 (OK), indicating token is valid
-                // return $response['statusCode'] === 200;
+                $endpoint = getShopifyURLForStore('shop.json', $storeDetails);
+                $headers = getShopifyHeadersForStore($storeDetails);
+
+                $response = $this->makeAnAPICallToShopify('GET', $endpoint, null, $headers, null);
+
+                return $response['statusCode'] === 200;
             }
             
-            // If storeDetails is null or access_token is empty, return true
-            // Alternatively, you might want to return false in this case if you want to strictly check token validity
             return false;
         } catch(Exception $e) {
-            // Log and return false in case of an exception
             return false;
         }
     }
