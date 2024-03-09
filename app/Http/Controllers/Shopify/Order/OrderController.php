@@ -47,7 +47,7 @@ class OrderController extends Controller
 
         $api = new BasicShopifyAPI($options);
         $shopifyStore = 'quickstart-eaa7987a.myshopify.com';
-        $apiPassword = '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';
+        $apiPassword = env('SHOPIFY_ACCESS_TOKEN');
 
         $api->setSession(new Session($shopifyStore, $apiPassword));
         $response = $api->rest('GET', '/admin/orders.json');
@@ -81,7 +81,7 @@ class OrderController extends Controller
 
         $api = new BasicShopifyAPI($options);
         $shopifyStore = 'quickstart-eaa7987a.myshopify.com';
-        $apiPassword = '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';
+        $apiPassword = env('SHOPIFY_ACCESS_TOKEN');
 
         $api->setSession(new Session($shopifyStore, $apiPassword));
 

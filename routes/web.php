@@ -35,20 +35,20 @@ Route::webhooks('products-create');
 
 
 // /shopify/auth
-Route::prefix('shopify/auth')->group(function () {
-    Route::get('/', [InstallationController::class, 'startInstallation']);
-    Route::get('redirect', [InstallationController::class, 'handleRedirect'])->name('app_install_redirect');
-    Route::get('complete', [InstallationController::class, 'completeInstallation'])->name('app_install_complete');
-});
+// Route::prefix('shopify/auth')->group(function () {
+//     Route::get('/', [InstallationController::class, 'startInstallation']);
+//     Route::get('redirect', [InstallationController::class, 'handleRedirect'])->name('app_install_redirect');
+//     Route::get('complete', [InstallationController::class, 'completeInstallation'])->name('app_install_complete');
+// });
 
 
-Route::prefix('webhook')->group(function () {
-    Route::any('order/created', [WebhooksController::class, 'orderCreated']);
-    Route::any('order/updated', [WebhooksController::class, 'orderUpdated']);
-    Route::any('product/created', [WebhooksController::class, 'productCreated']);
-    Route::any('app/uninstall', [WebhooksController::class, 'appUninstalled']);
-    Route::any('shop/updated', [WebhooksController::class, 'shopUpdated']);
-});
+// Route::prefix('webhook')->group(function () {
+//     Route::any('order/created', [WebhooksController::class, 'orderCreated']);
+//     Route::any('order/updated', [WebhooksController::class, 'orderUpdated']);
+//     Route::any('product/created', [WebhooksController::class, 'productCreated']);
+//     Route::any('app/uninstall', [WebhooksController::class, 'appUninstalled']);
+//     Route::any('shop/updated', [WebhooksController::class, 'shopUpdated']);
+// });
 
 Route::controller(WebhookController::class)->group(function () {
 

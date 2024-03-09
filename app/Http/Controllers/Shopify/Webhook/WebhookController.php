@@ -14,13 +14,12 @@ class WebhookController extends Controller
 {
     public function createWebHook()
     {
-        // return 'ok';
+
         $options = new Options();
         $options->setVersion('2024-01');
-
         $api = new BasicShopifyAPI($options);
         $shopifyStore = 'quickstart-eaa7987a.myshopify.com';
-        $apiPassword = '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';
+        $apiPassword = env('SHOPIFY_ACCESS_TOKEN');
 
         $api->setSession(new Session($shopifyStore, $apiPassword));
         // $response = $api->rest('POST', '/admin/webhooks.json');
@@ -61,7 +60,7 @@ class WebhookController extends Controller
 
         $api = new BasicShopifyAPI($options);
         $shopifyStore = 'quickstart-eaa7987a.myshopify.com';
-        $apiPassword = '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';
+        $apiPassword = env('SHOPIFY_ACCESS_TOKEN');
 
         $api->setSession(new Session($shopifyStore, $apiPassword));
         $response = $api->rest('GET', '/admin/webhooks.json');
