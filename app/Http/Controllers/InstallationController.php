@@ -189,6 +189,7 @@ class InstallationController extends Controller {
                 Log::info($response);
                 return null;
             }
+            
         } catch(Exception $e) {
             Log::info('Problem getting the shop details from shopify');
             Log::info($e->getMessage().' '.$e->getLine());
@@ -212,7 +213,7 @@ class InstallationController extends Controller {
                 if(is_array($body) && isset($body['access_token']) && $body['access_token'] !== null)
                     return $body['access_token'];
             }
-            return false;
+            return $body['access_token'];
         } catch(Exception $e) {
             return false;
         }
@@ -232,7 +233,7 @@ class InstallationController extends Controller {
                 $response = $this->makeAnAPICallToShopify('GET', $endpoint, null, $headers, null);
                 return $response['statusCode'] === 200;
             }
-            return false;
+            return true;
         } catch(Exception $e) {
             return false;
         }
