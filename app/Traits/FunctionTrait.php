@@ -35,9 +35,12 @@ trait FunctionTrait {
                 return false;
             }
     
+            // Replace CLIENT_SECRET with the actual client secret provided by Shopify
+            $clientSecret = env('SHOPIFY_API_SECRET');
+    
             // Calculate HMAC
             $dataForHmac = "shop=$shop&timestamp=$timestamp";
-            $calculatedHmac = hash_hmac('sha256', $dataForHmac, CLIENT_SECRET);
+            $calculatedHmac = hash_hmac('sha256', $dataForHmac, $clientSecret);
     
             // Compare calculated HMAC with received HMAC
             if ($calculatedHmac === $hmac) {
@@ -52,6 +55,7 @@ trait FunctionTrait {
             return false;
         }
     }
+    
     
     
     
