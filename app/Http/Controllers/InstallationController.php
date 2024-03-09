@@ -62,6 +62,7 @@ class InstallationController extends Controller {
     }
     
      public function startInstallation(Request $request) {
+        dd($request->all());
         try {
             $validRequest = $this->validateRequestFromShopify($request->all());
             if($validRequest) { 
@@ -106,7 +107,7 @@ class InstallationController extends Controller {
     
 
     public function handleRedirect(Request $request) {
-        dd($request->all());
+        
         try {
             $validRequest = $this->validateRequestFromShopify($request->all());
             if($validRequest) {
