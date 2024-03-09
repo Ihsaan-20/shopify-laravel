@@ -18,15 +18,19 @@ trait RequestTrait {
             $client = new Client();
             $response = null;
             if($method == 'GET' || $method == 'DELETE') {
-                $response = $client->request($method, $endpoint, [ 'headers' => $headers ]);
+                // Make a GET or DELETE request without request body
+                $response = $client->request($method, $endpoint, ['headers' => $headers]);
             } else {
-                $response = $client->request($method, $endpoint, [ 'headers' => $headers, 'json' => $requestBody ]);
+                // Make a POST or PUT request with JSON request body
+                $response = $client->request($method, $endpoint, ['headers' => $headers, 'json' => $requestBody]);
             } 
+            // Return the response status code and body
             return [
                 'statusCode' => $response->getStatusCode(),
                 'body' => json_decode($response->getBody(), true)
             ];
         } catch(Exception $e) {
+            // Log and return error details in case of an exception
             return [
                 'statusCode' => $e->getCode(),
                 'message' => $e->getMessage(),
@@ -34,25 +38,38 @@ trait RequestTrait {
             ];
         }
     }
-
+    
     public function makeAPOSTCallToShopify($payload, $endpoint, $headers = NULL) {
+        // Initialize cURL session
         $ch = curl_init();
+        
+        // Set cURL options
         curl_setopt($ch, CURLOPT_URL, $endpoint);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers === NULL ? [] : $headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_VERBOSE, 0);
-        curl_setopt($ch, CURLOPT_HEADER, true);
+        curl_setopt($ch, CURLOPT_HEADER, true); // Include headers in the response
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Skip SSL certificate verification
+    
+        // Execute cURL request
         $result = curl_exec($ch);
+    
+        // Get HTTP status code
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        $aHeaderInfo = curl_getinfo($ch);
-        $curlHeaderSize = $aHeaderInfo['header_size'];
-        $sBody = trim(mb_substr($result, $curlHeaderSize));
-
-        return ['statusCode' => $httpCode, 'body' => $sBody];
+    
+        // Close cURL session
+        curl_close($ch);
+    
+        // Extract response body
+        $headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+        $responseHeaders = substr($result, 0, $headerSize);
+        $responseBody = substr($result, $headerSize);
+    
+        // Return response status code and body
+        return ['statusCode' => $httpCode, 'body' => $responseBody];
     }
+    
 
     //For emitting Socket IO Messages
     public function sendSocketIONotification($channel, $message) {

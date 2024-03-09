@@ -10,7 +10,7 @@ trait FunctionTrait {
     public function getStoreByDomain($shop) {
         return Store::where('myshopify_domain', $shop)->first();
     }
-
+    
     public function validateRequestFromShopify($request) {
         try {
             $arr = [];
@@ -33,5 +33,5 @@ trait FunctionTrait {
             return false;
         }
     }
-
+    
 }
