@@ -95,5 +95,4 @@ Route::get('/shopify-crul', [ProductController::class, 'getApiDataWithCrul']);
 Route::get('/shopify-laravel-api', [ProductController::class, 'laravelApiProduct']);
 Route::get('/shopify-with-laravel-api', [ProductController::class, 'getProductsWithShopifyApi']);
 
-
 Route::get('testing', [ShopifyAppController::class, 'testing']);
