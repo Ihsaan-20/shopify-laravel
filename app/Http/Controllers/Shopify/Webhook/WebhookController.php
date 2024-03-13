@@ -17,7 +17,7 @@ class WebhookController extends Controller
     public function handleProductUpdate(Request $request)
     {
         // dd('checking');
-        $payload = "ihsaan";
+        $payload = ["name" =>"ihsaan"];
         Testing::create([
             'response' => $payload
         ]);
