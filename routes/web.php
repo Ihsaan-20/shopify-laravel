@@ -43,8 +43,8 @@ Route::controller(WebhookController::class)->group(function () {
     });
 });
 
-Route::post('https://elementary-solutions.com/shopify_store/public/webhook/products-create', [WebhookController::class, 'handleProductCreate']);
-Route::post('https://elementary-solutions.com/shopify_store/public/webhook/products-update', [WebhookController::class, 'handleProductUpdate']);
+Route::post('/webhook/products-create', [WebhookController::class, 'handleProductCreate']);
+Route::post('/webhook/products-update', [WebhookController::class, 'handleProductUpdate']);
 
 
 Route::controller(ProductController::class)->group(function () {
