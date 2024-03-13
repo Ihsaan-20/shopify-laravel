@@ -37,6 +37,7 @@ Route::controller(WebhookController::class)->group(function () {
 
     Route::get('get-all-webhooks', 'getAllWebHook');
     Route::get('create-webhooks', 'createWebHook');
+    Route::get('events', 'ProductEvent');
     Route::post('webhook/products', function (){
         Log::info('Hey!');
        

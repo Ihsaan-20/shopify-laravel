@@ -63,6 +63,30 @@ class WebhookController extends Controller
         return hash_equals($hmacHeader, $calculatedHmac);
     }
 
+    public function ProductEvent()
+    {
+        $options = new Options();
+        $options->setVersion('2024-01');
+        $api = new BasicShopifyAPI($options);
+        
+        $shopifyStore = 'quickstart-eaa7987a.myshopify.com';
+        $apiPassword = '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';
+
+        $api->setSession(new Session($shopifyStore, $apiPassword));
+        
+        $response = $api->rest('GET', '/admin/api/2024-01/events.json?filter=Product&verb=create');
+        // if(!isset($response['body']['events']))
+        // {
+        //     return null;
+        // }
+
+        // $data = $response['body']['events'];
+        Log::info('Events received:', $response);
+        dd($response??null);
+        // return response()->json(['status' => 'success'], 200);
+    
+              
+    }
     public function createWebHook()
     {
         $options = new Options();
