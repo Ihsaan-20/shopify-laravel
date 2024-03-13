@@ -27,12 +27,10 @@ class WebhookController extends Controller
     public function handleProductCreate(Request $request)
     {
 
-        $payload = $request->all();
-        Log::info($payload);
+        $payload = ["name" =>"ihsaan"];
         Testing::create([
             'response' => $payload
         ]);
-        
         return response()->json(['status' => 'success'], 200);
     }
 
