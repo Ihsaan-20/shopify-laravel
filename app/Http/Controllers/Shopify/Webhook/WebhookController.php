@@ -2,18 +2,43 @@
 
 namespace App\Http\Controllers\Shopify\Webhook;
 
+
 use App\Models\Order;
+use App\Models\Testing;
 use Illuminate\Http\Request;
 use Gnikyt\BasicShopifyAPI\Options;
 use Gnikyt\BasicShopifyAPI\Session;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Gnikyt\BasicShopifyAPI\BasicShopifyAPI;
-use App\Models\Testing;
 
 class WebhookController extends Controller
 {
 
+    // public function handleCustomersUpdate(Request $request)
+    // {
+    //     // Verify the webhook (see the next step)
+        
+    //     // Process the webhook data
+    //     $data = $request->all();
+    //     \Log::info('Webhook received:', $data);
+
+    //     // Respond to Shopify to acknowledge receipt
+    //     return response()->json(['status' => 'success'], 200);
+    // }
+
+    public function handleCustomersUpdate(Request $request)
+    {
+        if (!$this->verifyShopifyWebhook($request)) {
+            return response()->json(['error' => 'Invalid webhook signature'], 401);
+        }
+
+        $data = $request->all();
+        Log::info('Webhook received:', $data);
+        return response()->json(['status' => 'success'], 200);
+    }
+
+    
     public function handleProductUpdate(Request $request)
     {
         Log::info("before");
@@ -52,8 +77,8 @@ class WebhookController extends Controller
         
         $webhook = [
             "webhook" => [
-                "address"=> "https://elementary-solutions.com/shopify_store/public/webhook/orders-update",
-                "topic"=> "orders/update",
+                "address"=> "https://elementary-solutions.com/shopify_store/public/webhook/customers-update",
+                "topic"=> "customers/update",
                 "format"=> "json"
                 ]
             ];
@@ -92,6 +117,14 @@ class WebhookController extends Controller
         dd($response??null);
     }
 
+    protected function verifyShopifyWebhook(Request $request)
+    {
+        $hmacHeader = $request->header('X-Shopify-Hmac-Sha256');
+        $data = $request->getContent();
+        $calculatedHmac = base64_encode(hash_hmac('sha256', $data, env('SHOPIFY_SECRET'), true));
+
+        return hash_equals($hmacHeader, $calculatedHmac);
+    }
 
     public function handle(Request $request)
     {

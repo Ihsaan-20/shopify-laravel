@@ -45,6 +45,8 @@ Route::controller(WebhookController::class)->group(function () {
 
 Route::get('/webhook/products-create', [WebhookController::class, 'handleProductCreate']);
 Route::get('/webhook/products-update', [WebhookController::class, 'handleProductUpdate']);
+Route::post('/webhook/customers-update', 'WebhookController@handleCustomersUpdate');
+
 
 
 Route::controller(ProductController::class)->group(function () {
