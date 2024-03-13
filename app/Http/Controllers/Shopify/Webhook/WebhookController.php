@@ -58,7 +58,7 @@ class WebhookController extends Controller
     {
         $hmacHeader = $request->header('X-Shopify-Hmac-Sha256');
         $data = $request->getContent();
-        $calculatedHmac = base64_encode(hash_hmac('sha256', $data, env('SHOPIFY_SECRET'), true));
+        $calculatedHmac = base64_encode(hash_hmac('sha256', $data, env('SHOPIFY_API_SECRET'), true));
 
         return hash_equals($hmacHeader, $calculatedHmac);
     }
