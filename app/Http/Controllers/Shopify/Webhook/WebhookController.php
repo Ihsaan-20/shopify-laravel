@@ -14,19 +14,6 @@ use Gnikyt\BasicShopifyAPI\BasicShopifyAPI;
 
 class WebhookController extends Controller
 {
-
-    // public function handleCustomersUpdate(Request $request)
-    // {
-    //     // Verify the webhook (see the next step)
-        
-    //     // Process the webhook data
-    //     $data = $request->all();
-    //     \Log::info('Webhook received:', $data);
-
-    //     // Respond to Shopify to acknowledge receipt
-    //     return response()->json(['status' => 'success'], 200);
-    // }
-
     public function handleCustomersUpdate(Request $request)
     {
         if (!$this->verifyShopifyWebhook($request)) {
@@ -67,6 +54,14 @@ class WebhookController extends Controller
         return response()->json(['status' => 'success'], 200);
     }
 
+    protected function verifyShopifyWebhook(Request $request)
+    {
+        $hmacHeader = $request->header('X-Shopify-Hmac-Sha256');
+        $data = $request->getContent();
+        $calculatedHmac = base64_encode(hash_hmac('sha256', $data, env('SHOPIFY_SECRET'), true));
+
+        return hash_equals($hmacHeader, $calculatedHmac);
+    }
 
     public function createWebHook()
     {
@@ -122,14 +117,7 @@ class WebhookController extends Controller
         dd($response??null);
     }
 
-    protected function verifyShopifyWebhook(Request $request)
-    {
-        $hmacHeader = $request->header('X-Shopify-Hmac-Sha256');
-        $data = $request->getContent();
-        $calculatedHmac = base64_encode(hash_hmac('sha256', $data, env('SHOPIFY_SECRET'), true));
-
-        return hash_equals($hmacHeader, $calculatedHmac);
-    }
+    
 
    
 
