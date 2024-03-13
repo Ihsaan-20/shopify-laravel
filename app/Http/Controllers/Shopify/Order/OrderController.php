@@ -225,8 +225,8 @@ class OrderController extends Controller
         CURLOPT_CUSTOMREQUEST => 'GET',
         CURLOPT_HTTPHEADER => array(
             'system_key: $2y$10$I4LFgh0T8jK7sTDrFtnwwuBm5xfX66i7XLQWgSfeQdyTTihOCiSHW',
-            'Authorization: Bearer 13|QLF5coFS1lkDJVvbM4nMIeyUBrHz6v0NVEm8wAwc',
-            'Cookie: _session=rjkJ9qaVjCsiMesojn482lkFPZniqoAqrITGP88B'
+            'Authorization: Bearer 14|r5BGVnvcCMuzDv4sgi5jTo3bNNUumWAFeMJhh2LE',
+            'Cookie: _session=hP7qldkjvuT3xx42qeWPCnn1IDjpOmQElwGMdf68'
         ),
         ));
 
@@ -234,7 +234,7 @@ class OrderController extends Controller
 
         curl_close($curl);
         $order = json_decode($response);
-        dd($order);
+        // dd($order);
         $order->shipping_address = json_decode($order->shipping_address);
         $order->line_items = [
                         [

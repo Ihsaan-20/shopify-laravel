@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\WebhooksController;
-use App\Http\Controllers\InstallationController;
+
 use App\Http\Controllers\ShopifyAppController;
+
 use App\Http\Controllers\Shopify\Order\OrderController;
 use App\Http\Controllers\Shopify\Product\ProductController;
 use App\Http\Controllers\Shopify\Webhook\WebhookController;
@@ -31,24 +31,7 @@ Route::get('/wellcome', function () {
 })->middleware(['auth.shopify'])->name('home');
 
 
-Route::webhooks('products-create');
 
-
-// /shopify/auth
-// Route::prefix('shopify/auth')->group(function () {
-//     Route::get('/', [InstallationController::class, 'startInstallation']);
-//     Route::get('redirect', [InstallationController::class, 'handleRedirect'])->name('app_install_redirect');
-//     Route::get('complete', [InstallationController::class, 'completeInstallation'])->name('app_install_complete');
-// });
-
-
-// Route::prefix('webhook')->group(function () {
-//     Route::any('order/created', [WebhooksController::class, 'orderCreated']);
-//     Route::any('order/updated', [WebhooksController::class, 'orderUpdated']);
-//     Route::any('product/created', [WebhooksController::class, 'productCreated']);
-//     Route::any('app/uninstall', [WebhooksController::class, 'appUninstalled']);
-//     Route::any('shop/updated', [WebhooksController::class, 'shopUpdated']);
-// });
 
 Route::controller(WebhookController::class)->group(function () {
 
@@ -59,6 +42,9 @@ Route::controller(WebhookController::class)->group(function () {
        
     });
 });
+
+Route::post('https://elementary-solutions.com/shopify_store/public/webhook/products-create', [WebhookController::class, 'handleProductCreate']);
+Route::post('https://elementary-solutions.com/shopify_store/public/webhook/products-update', [WebhookController::class, 'handleProductUpdate']);
 
 
 Route::controller(ProductController::class)->group(function () {
@@ -78,7 +64,6 @@ Route::controller(OrderController::class)->group(function () {
 });
 
 Route::controller(CustomerController::class)->group(function () {
-
     Route::get('get-all-customer', 'getAllcustomerFromShopify')->name('get.all.customer.from.shopify');
     Route::get('store-all-customer', 'storeAllcustomerFromShopify')->name('store.all.customer.from.shopify');
    

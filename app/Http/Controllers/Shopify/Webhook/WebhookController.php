@@ -9,12 +9,37 @@ use Gnikyt\BasicShopifyAPI\Session;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Gnikyt\BasicShopifyAPI\BasicShopifyAPI;
+use App\Models\Testing;
 
 class WebhookController extends Controller
 {
-    public function createWebHook()
+
+    public function handleProductUpdate(Request $request)
+    {
+        // dd('checking');
+        $payload = $request->all();
+        Log::info($payload);
+        Testing::create([
+            'response' => $payload
+        ]);
+        return response()->json(['status' => 'success'], 200);
+    }
+
+    public function handleProductCreate(Request $request)
     {
 
+        $payload = $request->all();
+        Log::info($payload);
+        Testing::create([
+            'response' => $payload
+        ]);
+        
+        return response()->json(['status' => 'success'], 200);
+    }
+
+
+    public function createWebHook()
+    {
         $options = new Options();
         $options->setVersion('2024-01');
         $api = new BasicShopifyAPI($options);
@@ -27,8 +52,8 @@ class WebhookController extends Controller
         
         $webhook = [
             "webhook" => [
-                "address"=> "https://elementary-solutions.com/shopify_store/public/webhook/customers-update",
-                "topic"=> "customers/update",
+                "address"=> "https://elementary-solutions.com/shopify_store/public/webhook/orders-update",
+                "topic"=> "orders/update",
                 "format"=> "json"
                 ]
             ];

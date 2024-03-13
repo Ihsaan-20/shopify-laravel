@@ -273,7 +273,7 @@ class ProductController extends Controller
         curl_close($curl);
         $data = [];
         $decode_data = json_decode($res, true);
-
+        dd($decode_data);
 
         if ($decode_data && isset($decode_data['data'][0])) {
             $apiArray = $decode_data['data'][0];

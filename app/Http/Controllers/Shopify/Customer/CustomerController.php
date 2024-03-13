@@ -10,18 +10,9 @@ use App\Models\Customer;
 use Shopify\Clients\Rest;
 use Illuminate\Http\Request;
 
-
-
-// use Shopify\Auth\FileSessionStorage;
-// use Shopify\Auth\Session;
-
-//Shopify PHP library installation
-use Signifly\Shopify\Shopify;
 use Gnikyt\BasicShopifyAPI\Options;
 use Gnikyt\BasicShopifyAPI\Session;
 use App\Http\Controllers\Controller;
-
-use Shopify\Rest\Admin2024_01\Product;
 use Gnikyt\BasicShopifyAPI\BasicShopifyAPI;
 
 
