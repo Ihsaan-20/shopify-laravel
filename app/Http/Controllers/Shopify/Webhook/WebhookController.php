@@ -44,7 +44,7 @@ class WebhookController extends Controller
         $options->setVersion('2024-01');
         $api = new BasicShopifyAPI($options);
         $shopifyStore = 'quickstart-eaa7987a.myshopify.com';
-        $apiPassword = env('SHOPIFY_ACCESS_TOKEN');
+        $apiPassword = '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';
 
         $api->setSession(new Session($shopifyStore, $apiPassword));
         // $response = $api->rest('POST', '/admin/webhooks.json');
@@ -85,7 +85,7 @@ class WebhookController extends Controller
 
         $api = new BasicShopifyAPI($options);
         $shopifyStore = 'quickstart-eaa7987a.myshopify.com';
-        $apiPassword = env('SHOPIFY_ACCESS_TOKEN');
+        $apiPassword = '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';
 
         $api->setSession(new Session($shopifyStore, $apiPassword));
         $response = $api->rest('GET', '/admin/webhooks.json');
