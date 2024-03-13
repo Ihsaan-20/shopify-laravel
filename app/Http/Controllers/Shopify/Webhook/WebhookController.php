@@ -41,6 +41,9 @@ class WebhookController extends Controller
     
     public function handleProductUpdate(Request $request)
     {
+        if (!$this->verifyShopifyWebhook($request)) {
+            return response()->json(['error' => 'Invalid webhook signature'], 401);
+        }
         Log::info("before");
         $payload = "ihsaan";
         $test = new Testing();
@@ -53,7 +56,9 @@ class WebhookController extends Controller
 
     public function handleProductCreate(Request $request)
     {
-
+        if (!$this->verifyShopifyWebhook($request)) {
+            return response()->json(['error' => 'Invalid webhook signature'], 401);
+        }
         $payload = "ihsaan";
         $test = new Testing();
         $test->response = $payload;
@@ -126,30 +131,6 @@ class WebhookController extends Controller
         return hash_equals($hmacHeader, $calculatedHmac);
     }
 
-    public function handle(Request $request)
-    {
-        define('CLIENT_SECRET', '312be2ef4318c0d9c05e6e7d5975cf6a');
-        function verify_webhook($data, $hmac_header)
-        {
-        $calculated_hmac = base64_encode(hash_hmac('sha256', $data, CLIENT_SECRET, true));
-        return hash_equals($calculated_hmac, $hmac_header);
-        }
-
-        $hmac_header = $_SERVER['HTTP_X_SHOPIFY_HMAC_SHA256'];
-        $data = file_get_contents('php://input');
-        $verified = verify_webhook($data, $hmac_header);
-        error_log('Webhook verified: '.var_export($verified, true)); // Check error.log to see the result
-        if ($verified) {
-            $response = $data;
-            if(isset($response))
-            {
-                Log::info('data received');
-            }
-        # Process webhook payload
-        # ...
-        } else {
-        http_response_code(401);
-        }
-    }
+   
 
 }
