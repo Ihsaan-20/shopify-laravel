@@ -5,12 +5,16 @@ namespace App\Http\Controllers\Shopify\Webhook;
 
 use App\Models\Order;
 use App\Models\Testing;
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 use Gnikyt\BasicShopifyAPI\Options;
 use Gnikyt\BasicShopifyAPI\Session;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Models\ShopifyWebhookEvents;
 use Gnikyt\BasicShopifyAPI\BasicShopifyAPI;
+
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;
 
 class WebhookController extends Controller
 {
@@ -64,29 +68,49 @@ class WebhookController extends Controller
     }
 
     public function ProductEvent()
-    {
-        $options = new Options();
-        $options->setVersion('2024-01');
-        $api = new BasicShopifyAPI($options);
-        
-        $shopifyStore = 'quickstart-eaa7987a.myshopify.com';
-        $apiPassword = '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';
+{
+    $client = new \GuzzleHttp\Client();
+    $headers = [
+        'X-Shopify-Access-Token' => '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',
+        'Cookie' => '_master_udr=eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaEpJaWxtWTJJMk1UUTNOUzFrTlRobExUUmpNVEV0WVRSa05pMDVOR0V4WXpJNU9UWXdabVVHT2daRlJnPT0iLCJleHAiOiIyMDI2LTAzLTA3VDEwOjI4OjU1LjM2N1oiLCJwdXIiOiJjb29raWUuX21hc3Rlcl91ZHIifX0%3D--bc5f5d672ee6920955a662b35f054a6cf4eb43df; _secure_admin_session_id=96b719ebcd426e094e9c223d34e91425; _secure_admin_session_id_csrf=96b719ebcd426e094e9c223d34e91425; _landing_page=%2Fpassword; _orig_referrer=https%3A%2F%2F6caab75eb0bbcdb5d04f13c85b1d25e1%3A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%40quickstart-eaa7987a.myshopify.com%2Forder-creation%2Fweb-hook.json; _secure_session_id=2725a9d3f9fafc869c7e34e4c43f1e08; _shopify_y=d1135ea9-074e-45c9-8ec1-6236535ddf4e; _tracking_consent=%7B%22v%22%3A%222.1%22%2C%22reg%22%3A%22%22%2C%22region%22%3A%22PKSD%22%2C%22con%22%3A%7B%22CMP%22%3A%7B%22p%22%3A%22%22%2C%22m%22%3A%22%22%2C%22a%22%3A%22%22%2C%22s%22%3A%22%22%7D%7D%7D; cart_currency=PKR; localization=PK; secure_customer_sig='
+    ];
+    $request = new Request('GET', 'https://quickstart-eaa7987a.myshopify.com/admin/api/2023-10/events.json?filter=Product,Order', $headers);
+    $response = $client->send($request);
+    $data = json_decode($response->getBody(), true);
+    $arr = [];
 
-        $api->setSession(new Session($shopifyStore, $apiPassword));
-        
-        $response = $api->rest('GET', '/admin/api/2024-01/events.json?filter=Product&verb=create');
-        // if(!isset($response['body']['events']))
-        // {
-        //     return null;
-        // }
+    // Loop through the events
+    // foreach ($data['events'] as $d) {
+    //     if (isset($d['id'])) {
+    //         // Check if the event ID already exists in the database
+    //         $check = ShopifyWebhookEvents::where('id', $d['id'])->first();
+    //         if (!$check) {
+    //             ShopifyWebhookEvents::create([
+    //                 'id' => $d['id'],
+    //                 'subject_id' => $d['subject_id'],
+    //                 'subject_type' => $d['subject_type'],
+    //                 'verb' => $d['verb'],
+    //                 'arguments' => json_encode($d['arguments']),
+    //                 'body' => $d['body'],
+    //                 'message' => $d['message'],
+    //                 'author' => $d['author'],
+    //                 'description' => $d['description'],
+    //                 'path' => $d['path'],
+    //             ]);
+    //             Log::info('Event stored successfully.');
+    //         } else {
+                
+    //             $arr[] = $d;
+    //             Log::info('Event stored successfully in array.');
+    //             break;
+    //         }
+    //     }
+    // }
 
-        // $data = $response['body']['events'];
-        Log::info('Events received:', $response);
-        dd($response??null);
-        // return response()->json(['status' => 'success'], 200);
-    
-              
-    }
+    dd($data);
+}
+
+
     public function createWebHook()
     {
         $options = new Options();

@@ -73,7 +73,7 @@ class ProductController extends Controller
 
     public function getApiDataWithCrul()
     {
-        $token = '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';
+        $token = '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';
         $shopifyStore = 'quickstart-eaa7987a.myshopify.com';
 
         $ch = curl_init("https://" . $shopifyStore . "/admin/products.json");
