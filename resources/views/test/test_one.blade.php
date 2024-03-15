@@ -21,6 +21,13 @@
            <div class="row">
             <div class="col-lg-6 mx-auto">
                 <h1>Test one</h1>
+                <ul>
+                    @forelse ($records as $key => $r )
+                        <li>{{$key }} - {{$r}}</li>
+                    @empty
+                        <li>no record found</li>
+                    @endforelse
+                </ul>
             </div>
            </div>
 

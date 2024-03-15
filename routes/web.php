@@ -3,8 +3,9 @@
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\ShopifyAppController;
+use App\Http\Controllers\TestingController;
 
+use App\Http\Controllers\ShopifyAppController;
 use App\Http\Controllers\Shopify\Order\OrderController;
 use App\Http\Controllers\Shopify\Product\ProductController;
 use App\Http\Controllers\Shopify\Webhook\WebhookController;
@@ -82,4 +83,5 @@ Route::get('/shopify-crul', [ProductController::class, 'getApiDataWithCrul']);
 Route::get('/shopify-laravel-api', [ProductController::class, 'laravelApiProduct']);
 Route::get('/shopify-with-laravel-api', [ProductController::class, 'getProductsWithShopifyApi']);
 
-Route::get('testing', [ShopifyAppController::class, 'testing']);
+
+Route::get('testing', [TestingController::class, 'testing']);
