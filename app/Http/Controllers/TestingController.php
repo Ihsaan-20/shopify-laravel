@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Session;
 
 class TestingController extends Controller
 {
-    protected $apiKey = 'c2be734f4ce6e80f56e42ac02aaead3c'; // custom app key
-    protected $apiSecret = '239d30e79b32f28a81efc11a50d33820';
+    protected $apiKey = '57a63bdd13f74966d9eadb74d290b6cd'; // custom app key
+    protected $apiSecret = '8331bae95502ece5a47a461ba6ebfeb3';
     protected $shopUrl = 'https://quickstart-eaa7987a.myshopify.com';
 
     public function index()

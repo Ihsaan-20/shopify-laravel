@@ -66,9 +66,9 @@ class ShopifyAppController extends Controller
 
 
         $requestHeaders = array( 
-            'X-Shopify-Access-Token' => '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',
+            'X-Shopify-Access-Token' => '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',
             'Api-Version' => 'unstable',
-            'Authorization' => "Bearer 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"
+            'Authorization' => "Bearer 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"
         );
 
         $requestCookies = array();
@@ -92,7 +92,7 @@ class ShopifyAppController extends Controller
 
     public function getApiDataWithCrul()
     {
-        $token = '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';
+        $token = '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';
         $shopifyStore = 'quickstart-eaa7987a.myshopify.com';
 
         $ch = curl_init("https://" . $shopifyStore . "/admin/products.json");
@@ -127,7 +127,7 @@ class ShopifyAppController extends Controller
 
         $api = new BasicShopifyAPI($options);
         $shopifyStore = 'quickstart-eaa7987a.myshopify.com';
-        $apiPassword = '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';
+        $apiPassword = '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';
 
         $api->setSession(new Session($shopifyStore, $apiPassword));
         $response = $api->rest('GET', '/admin/products/'.$id.'.json');
@@ -142,7 +142,7 @@ class ShopifyAppController extends Controller
 
         $api = new BasicShopifyAPI($options);
         $shopifyStore = 'quickstart-eaa7987a.myshopify.com';
-        $apiPassword = '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';
+        $apiPassword = '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';
 
         $api->setSession(new Session($shopifyStore, $apiPassword));
 
@@ -169,7 +169,7 @@ class ShopifyAppController extends Controller
         $api = new BasicShopifyAPI($options);
 
         $shopifyStore = 'quickstart-eaa7987a.myshopify.com';
-        $apiPassword = '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';
+        $apiPassword = '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';
 
         $api->setSession(new Session($shopifyStore, $apiPassword));
 
@@ -182,7 +182,7 @@ class ShopifyAppController extends Controller
 
         $shopifyStore = 'quickstart-eaa7987a.myshopify.com';
         $apiKey = '6caab75eb0bbcdb5d04f13c85b1d25e1';
-        $apiPassword = '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';
+        $apiPassword = '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';
         $client = new \GuzzleHttp\Client();
         $response = $client->get("https://$shopifyStore/admin/api/2024-01/products.json", [
             'auth' => [$apiKey, $apiPassword]
@@ -197,7 +197,7 @@ class ShopifyAppController extends Controller
     {
         $shopifyStore = 'quickstart-eaa7987a.myshopify.com';
         $apiKey = '6caab75eb0bbcdb5d04f13c85b1d25e1';
-        $apiPassword = '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';
+        $apiPassword = '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';
         $client = new Client();
         $since_id = 0;
         $storeId = 999;
@@ -290,7 +290,7 @@ class ShopifyAppController extends Controller
         $options->setVersion('2024-01');
         $api = new BasicShopifyAPI($options);
         $shopifyStore = 'quickstart-eaa7987a.myshopify.com';
-        $apiPassword = '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';
+        $apiPassword = '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';
         $api->setSession(new Session($shopifyStore, $apiPassword));
 
 
