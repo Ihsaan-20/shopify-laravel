@@ -7,18 +7,6 @@ use Illuminate\Http\Request;
 
 class TestingController extends Controller
 {
-    // public function testing()
-    // {
-    //     $records = ["dis" => "Apple", "b" => "ball", "c" => "cat","d" => "dog", "e" => "elephent", "g" =>"grapes", "h" => "hen", "i" => "iron", "j" => "jet"];
-    //     $discount = 50;  
-    //     $item = [
-    //         'discount' => 50,
-    //         'item_price' => 150,
-    //     ];      
-    //     return view('test.test_one', compact('records', 'discount', 'item'));
-    // }
-
-
     protected $apiKey = '6caab75eb0bbcdb5d04f13c85b1d25e1';
     protected $apiSecret = '312be2ef4318c0d9c05e6e7d5975cf6a';
     protected $shopUrl = 'https://quickstart-eaa7987a.myshopify.com';
