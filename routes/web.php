@@ -73,6 +73,12 @@ Route::controller(CustomerController::class)->group(function () {
 });
 
 
+Route::controller(ShopifyAppController::class)->group(function () {
+    Route::post('/webhook/product-updated', 'handleProductUpdated');
+   
+});
+
+
 Route::get('/shopify', [ProductController::class, 'index']);
 Route::get('/shopify-two', [ProductController::class, 'getProductWithMetafields']);
 Route::get('/single-product', [ProductController::class, 'getSingleProduct']);

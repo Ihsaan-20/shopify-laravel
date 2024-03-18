@@ -32,6 +32,29 @@ use Shopify\Utils;
 class ShopifyAppController extends Controller
 {
 
+    public function handleProductUpdated(Request $request)
+    {
+        if ($this->isValidShopifyRequest($request)) {
+            $data = $request->all();
+            Log::info('Order created webhook received:', $data);
+            // Process the webhook data here
+        } else {
+            // Handle the invalid request (e.g., log it, return an error response)
+            Log::error('Invalid Shopify webhook signature');
+            return response()->json(['error' => 'Invalid signature'], 401);
+        }
+    }
+
+    public function isValidShopifyRequest(Request $request)
+    {
+        $hmacHeader = $request->header('X-Shopify-Hmac-Sha256');
+        $data = $request->getContent();
+        $calculatedHmac = base64_encode(hash_hmac('sha256', $data, 'your-shopify-app-secret', true));
+        
+        return hash_equals($hmacHeader, $calculatedHmac);
+    }
+
+
     public function testing()
     {
         $test = 2;
