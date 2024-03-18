@@ -14,27 +14,28 @@ class TestingController extends Controller
     protected $shopUrl = 'https://quickstart-eaa7987a.myshopify.com';
 
     public function index()
-    {
-        // Authenticate with Shopify and get access token
-        $accessToken = $this->getAccessToken();
+{
+    // Authenticate with Shopify and get access token
+    $accessToken = $this->getAccessToken();
 
-        if (!$accessToken) {
-            return $this->redirectToShopify();
-        }
-
-        // Make API request to fetch shop data
-        $client = new Client();
-        $response = $client->request('GET', "{$this->shopUrl}/admin/api/2024-01/shop.json", [
-            'headers' => [
-                'X-Shopify-Access-Token' => $accessToken,
-                'Accept' => 'application/json',
-            ],
-        ]);
-
-        $shopData = json_decode($response->getBody()->getContents(), true);
-
-        return view('shopify.index', compact('shopData'));
+    if (!$accessToken) {
+        return $this->redirectToShopify();
     }
+
+    // Make API request to fetch shop data
+    $client = new Client();
+    $response = $client->request('GET', "{$this->shopUrl}/admin/api/2024-01/shop.json", [
+        'headers' => [
+            'X-Shopify-Access-Token' => $accessToken,
+            'Accept' => 'application/json',
+        ],
+    ]);
+
+    $shopData = json_decode($response->getBody()->getContents(), true);
+
+    return view('shopify.index', compact('shopData'));
+}
+
 
     protected function getAccessToken()
     {
