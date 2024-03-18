@@ -2,27 +2,70 @@
 
 namespace App\Http\Controllers;
 
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
 class TestingController extends Controller
 {
-    public function testing()
+    // public function testing()
+    // {
+    //     $records = ["dis" => "Apple", "b" => "ball", "c" => "cat","d" => "dog", "e" => "elephent", "g" =>"grapes", "h" => "hen", "i" => "iron", "j" => "jet"];
+    //     $discount = 50;  
+    //     $item = [
+    //         'discount' => 50,
+    //         'item_price' => 150,
+    //     ];      
+    //     return view('test.test_one', compact('records', 'discount', 'item'));
+    // }
+
+
+    protected $apiKey = '6caab75eb0bbcdb5d04f13c85b1d25e1';
+    protected $apiSecret = '312be2ef4318c0d9c05e6e7d5975cf6a';
+    protected $shopUrl = 'https://quickstart-eaa7987a.myshopify.com';
+
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
+
+    public function index()
     {
-        // $records = ["a" => "Apple", "b" => "ball", "c" => "cat","d" => "dog", "e" => "elephent", "g" =>"grapes", "h" => "hen", "i" => "iron", "j" => "jet"];
-        // // $records = [];        
-        // return view('test.test_one', compact('records'));
+        // Authenticate with Shopify
+        $accessToken = $this->getAccessToken();
 
-        // $a = 2;
-        // echo 'first => '. ++$a;//3 - 2
-        // echo 'second =>'. $a++;//3 - 3  
-        // echo 'second =>'. $a++;//4 - 3
-        // echo 'third =>'. $a; //2 - 3
-        $i = 0;
-        for($i=0; $i <= 5; $i++)
-        {
-            echo 'loop i value '.$i; // 12345
-        }
+        // Make API request to fetch shop data
+        $client = new Client();
+        $response = $client->request('GET', "https://{$this->shopUrl}/admin/api/2024-01/shop.json", [
+            'headers' => [
+                'X-Shopify-Access-Token' => $accessToken,
+                'Accept' => 'application/json',
+            ],
+        ]);
 
-        echo "without loop value $i"; //5
+        $shopData = json_decode($response->getBody()->getContents(), true);
+
+        return view('shopify.index', compact('shopData'));
     }
+
+
+
+    protected function getAccessToken()
+{
+    // Check if the access token is stored in session
+    if (session()->has('access_token')) {
+        return session()->get('access_token');
+    }
+
+    // Redirect the user to the authorization endpoint if the access token is not available
+    $shopUrl = 'https://quickstart-eaa7987a.myshopify.com';
+    $apiKey = '6caab75eb0bbcdb5d04f13c85b1d25e1';
+    $scopes = 'read_products,write_products'; // Specify the required scopes
+    $redirectUri = 'https://elementary-solutions.com/shopify_store/public/shopify/auth'; // Your app's redirect URI
+
+
+    $authorizationUrl = "https://{$shopUrl}/admin/oauth/authorize?client_id={$apiKey}&scope={$scopes}&redirect_uri={$redirectUri}";
+
+    return redirect()->away($authorizationUrl);
+}
+
 }

@@ -402,17 +402,11 @@ return [
 
     'webhooks' => [
         [
-            'topic' => env('SHOPIFY_WEBHOOK_1_TOPIC', 'orders/create'),
-            'address' => env('SHOPIFY_WEBHOOK_1_ADDRESS', '/webhook/orders-create')
+            'topic' => 'PRODUCTS_UPDATE',
+            'address' => 'https://elementary-solutions.com/shopify_store/public/shopify/webhook/product-web-hook'
         ],
-        [
-            'topic' => env('SHOPIFY_WEBHOOK_2_TOPIC', 'products/create'),
-            'address' => env('SHOPIFY_WEBHOOK_2_ADDRESS', '/webhook/products-create')
-        ],
-        [
-            'topic' => env('SHOPIFY_WEBHOOK_3_TOPIC', 'customers/create'),
-            'address' => env('SHOPIFY_WEBHOOK_3_ADDRESS', '/webhook/customers-create')
-        ],
+       
+        
     ],
     
 

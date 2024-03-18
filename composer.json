@@ -10,6 +10,7 @@
         "guzzlehttp/guzzle": "^7.8",
         "kyon147/laravel-shopify": "^20.0",
         "laravel/framework": "^10.10",
+        "laravel/jetstream": "^4.0",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "shopify/shopify-api": "^4.3",

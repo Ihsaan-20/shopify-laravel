@@ -2,31 +2,22 @@
 
 namespace App\Http\Controllers\Shopify\Webhook;
 
-
-use App\Models\Order;
+use Illuminate\Http\Request;
+use App\Jobs\ProcessShopifyWebhook;
 use App\Models\Testing;
-// use Illuminate\Http\Request;
 use Gnikyt\BasicShopifyAPI\Options;
 use Gnikyt\BasicShopifyAPI\Session;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use App\Models\ShopifyWebhookEvents;
 use Gnikyt\BasicShopifyAPI\BasicShopifyAPI;
-
-use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Request;
 
 class WebhookController extends Controller
 {
-    public function handleCustomersUpdate(Request $request)
+    public function handleShopifyWebhook(Request $request)
     {
-        if (!$this->verifyShopifyWebhook($request)) {
-            return response()->json(['error' => 'Invalid webhook signature'], 401);
-        }
 
-        $data = $request->all();
-        Log::info('Webhook received:', $data);
-        return response()->json(['status' => 'success'], 200);
+        ProcessShopifyWebhook::dispatch($request->all());
+        return response()->json(['success' => true], 200);
     }
 
     

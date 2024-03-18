@@ -33,7 +33,7 @@ Route::get('/wellcome', function () {
 
 
 
-Route::post('/webhook/shopify', [WebhookController::class, 'handleShopifyWebhook']);
+
 Route::controller(WebhookController::class)->group(function () {
 
     Route::get('get-all-webhooks', 'getAllWebHook');

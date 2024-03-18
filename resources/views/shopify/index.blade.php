@@ -1,71 +1,15 @@
-<!doctype html>
-<html lang="en">
-
+<!DOCTYPE html>
+<html>
 <head>
-    <title>Title</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
-    <!-- Bootstrap CSS v5.2.1 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <title>Shopify App</title>
 </head>
-
 <body>
-    <header>
-        <!-- place navbar here -->
-    </header>
-    <main>
-        <div class="container">
-           <div class="row">
-            <div class="col-lg-6 mx-auto">
-                @if (session()->has('success'))
-                    <div class="alert alert-success alert-dismissible fade show mt-3 mb-2" role="alert">
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        <strong>{{session('success')}}</strong>
-                    </div>
-                @endif
-            </div>
-           </div>
-
-           <div class="row">
-                <div class="col-lg-6 mx-auto">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="mb-3 text-end">
-                                <a href="{{route('sync.products')}}" class="btn btn-primary">Sync Products</a>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                           
-                            <h1>Shopify Products</h1>
-                            <ul>
-                                @foreach ($products as $product)
-                                <li>{{ $product['title'] }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        
-
-    </main>
-    <footer>
-        <!-- place footer here -->
-    </footer>
-    <!-- Bootstrap JavaScript Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
-    </script>
+    <h1>Welcome to Shopify App</h1>
+    <h2>Shop Details:</h2>
+    <ul>
+        <li>Shop Name: {{ $shopData['shop']['name'] }}</li>
+        <li>Shop Domain: {{ $shopData['shop']['domain'] }}</li>
+        <!-- Add more shop details as needed -->
+    </ul>
 </body>
-
 </html>

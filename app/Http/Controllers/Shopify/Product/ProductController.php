@@ -129,15 +129,10 @@ class ProductController extends Controller
         $since_id = 0;
         $storeId = 999;
         LocalProducts::truncate();
-
         $response = $client->get("https://$shopifyStore/admin/api/2024-01/products.json?since_id=$since_id", [
             'auth' => [$apiKey, $apiPassword]
         ]);
-
         $products = json_decode($response->getBody(), true)['products'];
-        
-       
-
         foreach ($products as $product) {
 
             $product['store_id'] = $storeId;
@@ -163,7 +158,6 @@ class ProductController extends Controller
                 'images' => json_encode($product['images']),
                 'image' => json_encode($product['image'])
             ];
-
             // Update or create the product
             LocalProducts::updateOrCreate($update_arr, $productData);
         }
